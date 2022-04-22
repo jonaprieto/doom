@@ -105,3 +105,18 @@
 (require 'minijuvix-mode)
 
 (centered-window-mode t)
+
+(map!
+   :map haskell-interactive-mode-map
+   :n "RET" #'haskell-interactive-mode-return
+   )
+
+(after! haskell-mode
+  (add-hook 'haskell-interactive-mode-hook
+            (lambda ()
+              (when (eq major-mode 'haskell-interactive-mode)
+                (flycheck-mode +1)
+                (flycheck-mode -1)
+                )
+           ))
+)
