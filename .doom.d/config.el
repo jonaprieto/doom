@@ -42,7 +42,7 @@
   (setq
    doom-themes-enable-bold t
    doom-themes-enable-italic t)
-   (doom-themes-visual-bell-config)  ;; Enable flashing mode-line on errors
+   (doom-themes-visual-bell-config)  ;; Enable flashing mode-line on e rrors
 
    (setq doom-themes-treemacs-theme "doom-atom")
    (doom-themes-treemacs-config)
@@ -100,11 +100,36 @@
 (setq auto-mode-alist (cons '("\\.lagda.tex$" . agda2-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.lagda.rst$" . agda2-mode) auto-mode-alist))
 
+;; company
+
+(after! company
+  (map!
+   :map company-active-map "<tab>" #'company-complete-selection))
+
+;; indent-guides
+;;
+(after! highlight-indent-guide
+  (setq highlight-indent-guides-method 'fill)
+)
 
 (add-load-path! "/Users/jonaprieto/work/minijuvix/minijuvix-mode/")
 (require 'minijuvix-mode)
 
-(centered-window-mode t)
+;; Be civilian.
+(after! centered-window-mode
+  (centered-window-mode t))
+
+;; vterm
+
+(after! vterm
+  (set-popup-rule!
+    "*doom:vterm-popup:main"
+    :size 0.45
+    :vslot -4
+    :select t
+    :quit nil
+    :ttl 0
+    :side 'right))
 
 (map!
    :map haskell-interactive-mode-map
